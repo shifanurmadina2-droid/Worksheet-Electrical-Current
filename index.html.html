@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LKM Interaktif – Current Electricity</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f8faff 0%, #e6ecf7 100%);
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .lkm-container {
+      max-width: 950px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(3px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px -10px rgba(0, 20, 40, 0.25), 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem 2rem 2rem 2rem;
+      border: 1px solid #ffffffaa;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      letter-spacing: -0.5px;
+      border-left: 8px solid #2a7de1;
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: #2c4e6e;
+      margin-bottom: 1.8rem;
+      padding-left: 2rem;
+      font-weight: 400;
+      border-bottom: 1px dashed #b6cde0;
+      padding-bottom: 0.7rem;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      background: #d9e8f7;
+      padding: 1rem 1.8rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      color: #123456;
+      align-items: center;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .info-item span:first-child {
+      font-weight: 600;
+      color: #0a314d;
+    }
+
+    .inline-input {
+      border: none;
+      border-bottom: 2px dotted #2a7de1;
+      background: transparent;
+      padding: 0.3rem 0.2rem;
+      font-size: 1rem;
+      width: 140px;
+      font-weight: 500;
+      color: #003b6f;
+      outline: none;
+      transition: 0.15s;
+    }
+
+    .inline-input:focus {
+      border-bottom: 2px solid #1b5bbf;
+      background: #ffffff90;
+    }
+
+    .member-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.8rem;
+      margin-top: 0.2rem;
+    }
+
+    .member-input {
+      border: none;
+      border-bottom: 1.5px dotted #4a7ca8;
+      background: transparent;
+      padding: 0.3rem 0.2rem;
+      width: 140px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .member-input:focus {
+      border-bottom: 1.5px solid #1b5bbf;
+    }
+
+    section {
+      margin-bottom: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0f3b61;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2 i {
+      font-style: normal;
+      background: #2a7de1;
+      color: white;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 1rem;
+    }
+
+    .card {
+      background: #ffffffd9;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.8rem;
+      box-shadow: 0 4px 12px rgba(0, 20, 30, 0.06);
+      border: 1px solid #c2d9ee;
+    }
+
+    .tool-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+      list-style: none;
+      margin: 0.5rem 0 0.2rem 0;
+    }
+
+    .tool-list li {
+      background: #e3effb;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      color: #12406b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tool-list li::before {
+      content: "⚡";
+      font-size: 1rem;
+    }
+
+    .steps {
+      background: #edf4fc;
+      padding: 1.2rem 1.8rem;
+      border-radius: 1.2rem;
+      margin-top: 0.6rem;
+    }
+
+    .steps ol {
+      padding-left: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      color: #1a3e5e;
+      font-weight: 500;
+    }
+
+    .steps li {
+      list-style-type: decimal;
+    }
+
+    .question-block {
+      margin-top: 1rem;
+    }
+
+    .question-item {
+      margin-bottom: 1.4rem;
+    }
+
+    .question-item label {
+      display: block;
+      font-weight: 600;
+      color: #0d3c61;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .answer-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 1.2rem;
+      border: 1.5px solid #b8d2ea;
+      background: #ffffff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: 0.15s;
+      resize: vertical;
+      outline: none;
+      color: #0b2b4a;
+    }
+
+    .answer-input:focus {
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 3px #a3c8f0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.4rem 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th {
+      background: #1e4f7a;
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 1rem;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    td {
+      background: #f9fcff;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #cde0f2;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0.4rem 0.2rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      border-bottom: 1px dashed #8eb0d0;
+      transition: 0.1s;
+    }
+
+    td input:focus {
+      border-bottom: 2px solid #1b5bbf;
+      background: #e7f0fe;
+      border-radius: 6px;
+      padding-left: 0.5rem;
+    }
+
+    .conclusion-input {
+      width: 100%;
+      min-height: 90px;
+      padding: 1rem 1.2rem;
+      border-radius: 1.2rem;
+      border: 2px solid #b8d2ea;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.15s;
+      resize: vertical;
+    }
+
+    .conclusion-input:focus {
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 4px #c9e0fa;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      font-size: 1rem;
+      background: #1d4e7c;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 12px -4px #0e2d4b;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: #0f3b60;
+      transform: scale(1.02);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #1d4e7c;
+      border: 2px solid #1d4e7c;
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: #d9e8fa;
+      color: #0a2e4a;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #3b6185;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 0.8rem; }
+      .lkm-container { padding: 1.5rem; }
+      h1 { font-size: 1.5rem; }
+      .info-row { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+      .tool-list li { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="lkm-container">
+    <!-- HEADER -->
+    <h1>⚡ INVESTIGATE: TURN ON THE LIGHTS & CONNECTIONS</h1>
+    <div class="subhead">Student Worksheet (LKM) — Current Electricity</div>
+
+    <!-- GROUP INFO -->
+    <div class="info-row">
+      <div class="info-item">
+        <span>👥 Group:</span>
+        <input type="text" class="inline-input" placeholder="Group name / number" style="width:160px;">
+      </div>
+      <div class="info-item" style="flex-wrap:wrap;">
+        <span>📅 Class / Date:</span>
+        <input type="text" class="inline-input" placeholder="Class" style="width:90px;">
+        <span style="margin:0 0.2rem;">/</span>
+        <input type="text" class="inline-input" placeholder="Date" style="width:130px;">
+      </div>
+    </div>
+
+    <div style="margin-bottom:2rem;">
+      <div style="font-weight:600; color:#0a314d; margin-bottom:0.5rem;">👤 Members:</div>
+      <div class="member-grid">
+        <input type="text" class="member-input" placeholder="1. Full name">
+        <input type="text" class="member-input" placeholder="2. Full name">
+        <input type="text" class="member-input" placeholder="3. Full name">
+        <input type="text" class="member-input" placeholder="4. Full name">
+      </div>
+    </div>
+
+    <!-- A. TITLE (static) -->
+    <section>
+      <h2><i>A</i> Title</h2>
+      <div class="card" style="background:#eaf3fd; padding:1rem 1.8rem;">
+        <p style="font-weight:500; font-size:1.05rem;">🔎 Investigate conditions for the lamp to turn on and connect observations with current electricity.</p>
+      </div>
+    </section>
+
+    <!-- B. OBJECTIVES -->
+    <section>
+      <h2><i>B</i> Objectives</h2>
+      <div class="card">
+        <ul style="list-style-type:disc; padding-left:1.8rem; color:#153e5e; display:flex; flex-direction:column; gap:0.4rem;">
+          <li>Investigate conditions required for the lamp to work.</li>
+          <li>Connect observation results with the concept of electric current.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- C. TOOLS & MATERIALS -->
+    <section>
+      <h2><i>C</i> Tools & Materials</h2>
+      <div class="card">
+        <ul class="tool-list">
+          <li>Battery</li>
+          <li>Small light bulb</li>
+          <li>Connecting cable</li>
+          <li>Switch (if available)</li>
+          <li>Alternative: simulation of series circuit</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- D. STEPS -->
+    <section>
+      <h2><i>D</i> Activity Steps</h2>
+      <div class="steps">
+        <ol>
+          <li>Connect battery, cables, and light bulb into a complete (closed) circuit.</li>
+          <li>Observe the light bulb.</li>
+          <li>Disconnect one cable, then observe the light bulb again.</li>
+          <li>Record the difference in observations in the table below.</li>
+        </ol>
+        <div style="margin-top:1rem; font-size:0.9rem; color:#1f4d7a; background:#d6e6fa; padding:0.6rem 1rem; border-radius:1rem;">
+          ⚠️ Always follow the teacher's safety instructions while using the equipment.
+        </div>
+      </div>
+    </section>
+
+    <!-- E. INITIAL ASSUMPTION (questions with inputs) -->
+    <section>
+      <h2><i>E</i> Initial Assumption</h2>
+      <div class="card">
+        <div class="question-item">
+          <label>🔹 What conditions make the light bulb light up?</label>
+          <textarea class="answer-input" rows="2" placeholder="Your hypothesis..."></textarea>
+        </div>
+        <div class="question-item">
+          <label>🔹 What flows through the cable?</label>
+          <textarea class="answer-input" rows="2" placeholder="Your hypothesis..."></textarea>
+        </div>
+        <div class="question-item">
+          <label>🔹 What factor influences the magnitude of current?</label>
+          <textarea class="answer-input" rows="2" placeholder="Your hypothesis..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- F. OBSERVATION TABLE -->
+    <section>
+      <h2><i>F</i> Observation Table</h2>
+      <div class="card" style="padding:0.5rem 1rem 1.2rem 1rem;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:30%;">Condition (Series)</th>
+              <th style="width:40%;">Observation on the Light</th>
+              <th style="width:30%;">Information</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Closed (complete) circuit</td>
+              <td><input type="text" placeholder="e.g., light is on, bright..."></td>
+              <td><input type="text" placeholder="notes"></td>
+            </tr>
+            <tr>
+              <td>Open (one cable released)</td>
+              <td><input type="text" placeholder="e.g., light is off..."></td>
+              <td><input type="text" placeholder="notes"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- G. DISCUSSION & QUESTIONS -->
+    <section>
+      <h2><i>G</i> Discussion & Questions</h2>
+      <div class="card">
+        <div class="question-item">
+          <label>1. When does the light bulb light up?</label>
+          <textarea class="answer-input" rows="2" placeholder="Answer..."></textarea>
+        </div>
+        <div class="question-item">
+          <label>2. Why must the circuit be closed?</label>
+          <textarea class="answer-input" rows="2" placeholder="Answer..."></textarea>
+        </div>
+        <div class="question-item">
+          <label>3. Define electric current.</label>
+          <textarea class="answer-input" rows="2" placeholder="Answer..."></textarea>
+        </div>
+        <div class="question-item">
+          <label>4. If a 6 C charge passes through a point in 2 s, calculate the current strength.</label>
+          <textarea class="answer-input" rows="2" placeholder="Show your calculation..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- H. CONCLUSION (renamed from G to H, but consistent) -->
+    <section>
+      <h2><i>H</i> Conclusion</h2>
+      <div class="card">
+        <p style="margin-bottom:0.8rem; color:#1b4a73; font-weight:500;">Write two sentences explaining electric current and the conditions necessary for current to flow.</p>
+        <textarea class="conclusion-input" placeholder="1. Electric current is ... &#10;2. Current can flow if ..."></textarea>
+      </div>
+    </section>
+
+    <!-- BUTTONS (interactive: save / print / reset) -->
+    <div class="btn-row">
+      <button class="btn" id="saveBtn">💾 Save Answers (local)</button>
+      <button class="btn btn-outline" id="printBtn">🖨️ Print Worksheet</button>
+      <button class="btn btn-outline" id="resetBtn">🔄 Reset</button>
+    </div>
+    <div class="footer-note">Interactive LKM – Current Electricity · Fill in the fields and explore!</div>
+  </div>
+
+  <script>
+    (function() {
+      // Collect all input, textarea fields (excluding buttons, etc.)
+      const allFields = () => document.querySelectorAll('input[type="text"], textarea');
+
+      // Save to localStorage
+      function saveAnswers() {
+        const fields = allFields();
+        const data = [];
+        fields.forEach((field, index) => {
+          // Use a stable identifier: id, name, placeholder? Use index relative to allFields
+          // But to be more robust, we can use a data-key attribute? We'll just use index + placeholder prefix.
+          // Better: store by an artificial key based on order and placeholder to reduce mismatch if fields change.
+          // Since layout is static, index is fine.
+          data.push(field.value);
+        });
+        localStorage.setItem('lkm_current_electricity', JSON.stringify(data));
+        alert('✅ Answers saved locally!');
+      }
+
+      // Load from localStorage
+      function loadAnswers() {
+        const saved = localStorage.getItem('lkm_current_electricity');
+        if (!saved) return;
+        try {
+          const data = JSON.parse(saved);
+          const fields = allFields();
+          if (data.length === fields.length) {
+            fields.forEach((field, idx) => {
+              if (data[idx] !== undefined) field.value = data[idx];
+            });
+          } else {
+            // If mismatch, try to fill partial
+            fields.forEach((field, idx) => {
+              if (data[idx] !== undefined) field.value = data[idx];
+            });
+          }
+        } catch (e) {
+          console.warn('Failed to load saved answers.');
+        }
+      }
+
+      // Reset all fields
+      function resetFields() {
+        if (confirm('Reset all answers? Unsaved changes will be lost.')) {
+          const fields = allFields();
+          fields.forEach(field => field.value = '');
+          // also clear localStorage
+          localStorage.removeItem('lkm_current_electricity');
+        }
+      }
+
+      // Print
+      function printWorksheet() {
+        window.print();
+      }
+
+      // Attach event listeners
+      document.getElementById('saveBtn').addEventListener('click', saveAnswers);
+      document.getElementById('resetBtn').addEventListener('click', resetFields);
+      document.getElementById('printBtn').addEventListener('click', printWorksheet);
+
+      // Auto-load on page load
+      window.addEventListener('load', loadAnswers);
+
+      // Optional: auto-save periodically? Not needed.
+    })();
+  </script>
+  <!-- small style for print -->
+  <style media="print">
+    body { background: white; padding: 0.5rem; }
+    .lkm-container { box-shadow: none; border: 1px solid #ccc; }
+    .btn-row, .footer-note { display: none; }
+    .answer-input, .conclusion-input, td input, .inline-input, .member-input {
+      border-bottom: 1px solid #888 !important;
+      background: #fcfcfc;
+    }
+    .card { break-inside: avoid; }
+  </style>
+</body>
+</html>
